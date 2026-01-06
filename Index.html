@@ -104,7 +104,6 @@
         input[type="email"],
         input[type="tel"],
         input[type="number"],
-        input[type="url"],
         select,
         textarea {
             width: 100%;
@@ -119,7 +118,6 @@
         input[type="email"]:focus,
         input[type="tel"]:focus,
         input[type="number"]:focus,
-        input[type="url"]:focus,
         select:focus,
         textarea:focus {
             outline: none;
@@ -316,11 +314,22 @@
             font-size: 14px;
         }
         
+        /* Nuevos estilos para mensajes */
         .success-message {
             display: none;
             background: #d4edda;
             color: #155724;
-            padding: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .error-message {
+            display: none;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
             border-radius: 5px;
             margin: 20px 0;
             text-align: center;
@@ -338,136 +347,135 @@
         
         <div class="form-container">
             <div class="note">
-                <p><strong>Importante:</strong> Por favor complete todos los campos marcados con * y adjunte los documentos solicitados. Formspree acepta archivos PDF, JPG y PNG.</p>
+                <p><strong>Importante:</strong> Por favor complete todos los campos marcados con * y adjunte los documentos solicitados en formato PDF o imagen (JPG, PNG).</p>
             </div>
             
-            <!-- FORMULARIO CONFIGURADO PARA FORMSPREE -->
+            <!-- ✅ FORMULARIO CONFIGURADO PARA FORMCARRY -->
             <form 
-                id="toyotaForm"
-                action="https://formspree.io/f/xgovgeaa" 
-                method="POST"
+                action="https://formcarry.com/s/qTuSh0WvS4g" 
+                method="POST" 
                 enctype="multipart/form-data"
+                id="approvalForm"
             >
-                <!-- Configuraciones adicionales de Formspree (opcionales) -->
-                <input type="hidden" name="_subject" value="Nueva solicitud de financiamiento Toyota">
-                <input type="hidden" name="_replyto" value="" id="replyTo">
-                <input type="hidden" name="_cc" value="">
+                <!-- ⭐⭐ CONFIGURACIÓN FORMCARRY (NECESARIO) -->
+                <input type="hidden" name="_subject" value="Nueva solicitud Toyota - {fullName}">
+                <input type="hidden" name="_replyto" value="" id="replyToField">
+                <input type="hidden" name="_autoresponse" value="yes">
                 <input type="text" name="_gotcha" style="display:none">
+                
+                <!-- ⭐⭐ INFORMACIÓN BÁSICA DEL CLIENTE (NECESARIO) -->
+                <h2 class="section-title">Información Personal</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName" class="required">Nombre completo *</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="required">Correo electrónico *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="required">Teléfono *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                </div>
                 
                 <!-- Documentación -->
                 <h2 class="section-title">Documentación</h2>
                 <div class="form-row">
+                    <!-- ⭐⭐ CAMBIO IMPORTANTE: Separar los 3 estados de cuenta en campos individuales -->
                     <div class="form-group">
-                        <label for="bankStmt1" class="required">Estado de cuenta 1 (PDF o imagen)</label>
+                        <label for="bankStmt1" class="required">Estado de cuenta 1 (PDF) *</label>
                         <div class="file-input">
                             <i class="fas fa-file-pdf"></i>
-                            <div class="file-text">Seleccionar archivo</div>
+                            <div class="file-text">Seleccionar archivo PDF</div>
                             <span class="file-name" id="bankStmt1File">Ningún archivo seleccionado</span>
-                            <input type="file" id="bankStmt1" name="bankStmt1" accept=".pdf,image/*" required>
+                            <input type="file" id="bankStmt1" name="bankStmt1" accept=".pdf" required>
                         </div>
-                        <div class="file-validation">PDF, JPG, PNG (Máx. 10MB)</div>
+                        <div class="file-validation" id="bankStmt1Validation">Archivo PDF requerido</div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="bankStmt2" class="required">Estado de cuenta 2 (PDF o imagen)</label>
+                        <label for="bankStmt2" class="required">Estado de cuenta 2 (PDF) *</label>
                         <div class="file-input">
                             <i class="fas fa-file-pdf"></i>
-                            <div class="file-text">Seleccionar archivo</div>
+                            <div class="file-text">Seleccionar archivo PDF</div>
                             <span class="file-name" id="bankStmt2File">Ningún archivo seleccionado</span>
-                            <input type="file" id="bankStmt2" name="bankStmt2" accept=".pdf,image/*" required>
+                            <input type="file" id="bankStmt2" name="bankStmt2" accept=".pdf" required>
                         </div>
-                        <div class="file-validation">PDF, JPG, PNG (Máx. 10MB)</div>
+                        <div class="file-validation" id="bankStmt2Validation">Archivo PDF requerido</div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="bankStmt3" class="required">Estado de cuenta 3 (PDF o imagen)</label>
+                        <label for="bankStmt3" class="required">Estado de cuenta 3 (PDF) *</label>
                         <div class="file-input">
                             <i class="fas fa-file-pdf"></i>
-                            <div class="file-text">Seleccionar archivo</div>
+                            <div class="file-text">Seleccionar archivo PDF</div>
                             <span class="file-name" id="bankStmt3File">Ningún archivo seleccionado</span>
-                            <input type="file" id="bankStmt3" name="bankStmt3" accept=".pdf,image/*" required>
+                            <input type="file" id="bankStmt3" name="bankStmt3" accept=".pdf" required>
                         </div>
-                        <div class="file-validation">PDF, JPG, PNG (Máx. 10MB)</div>
+                        <div class="file-validation" id="bankStmt3Validation">Archivo PDF requerido</div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="idDoc" class="required">Foto de ID y/o licencia</label>
+                        <label for="idDoc" class="required">Foto de ID y/o licencia *</label>
                         <div class="file-input">
                             <i class="fas fa-id-card"></i>
                             <div class="file-text">Seleccionar imagen</div>
                             <span class="file-name" id="idFile">Ningún archivo seleccionado</span>
                             <input type="file" id="idDoc" name="idDoc" accept="image/*" required>
                         </div>
-                        <div class="file-validation">JPG, PNG (Máx. 10MB)</div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="itinDoc">Foto del Social o ITIN number (si lo tienes)</label>
+                        <label for="itinDoc">Foto del Social o ITIN number (opcional)</label>
                         <div class="file-input">
                             <i class="fas fa-passport"></i>
                             <div class="file-text">Seleccionar imagen</div>
                             <span class="file-name" id="itinFile">Ningún archivo seleccionado</span>
                             <input type="file" id="itinDoc" name="itinDoc" accept="image/*">
                         </div>
-                        <div class="file-validation">JPG, PNG (Máx. 10MB)</div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="payrollDoc" class="required">Último Payroll (voucher de pago)</label>
+                        <label for="payrollDoc" class="required">Último Payroll (PDF) *</label>
                         <div class="file-input">
                             <i class="fas fa-file-invoice-dollar"></i>
-                            <div class="file-text">Seleccionar archivo</div>
+                            <div class="file-text">Seleccionar archivo PDF</div>
                             <span class="file-name" id="payrollFile">Ningún archivo seleccionado</span>
-                            <input type="file" id="payrollDoc" name="payrollDoc" accept=".pdf,image/*" required>
+                            <input type="file" id="payrollDoc" name="payrollDoc" accept=".pdf" required>
                         </div>
-                        <div class="file-validation">PDF, JPG, PNG (Máx. 10MB)</div>
+                        <div class="file-validation" id="payrollValidation">Archivo PDF requerido</div>
                     </div>
                 </div>
                 
-                <!-- Información personal -->
-                <h2 class="section-title">Información Personal</h2>
+                <!-- Información complementaria -->
+                <h2 class="section-title">Información Complementaria</h2>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="fullName" class="required">Nombre completo</label>
-                        <input type="text" id="fullName" name="fullName" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email" class="required">Correo electrónico</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phone" class="required">Teléfono</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                </div>
-                
-                <!-- Información laboral -->
-                <h2 class="section-title">Información Laboral</h2>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="workName" class="required">Nombre de tu trabajo</label>
+                        <label for="workName" class="required">Nombre de tu trabajo *</label>
                         <input type="text" id="workName" name="workName" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="workAddress" class="required">Dirección de tu trabajo</label>
+                        <label for="workAddress" class="required">Dirección de tu trabajo *</label>
                         <input type="text" id="workAddress" name="workAddress" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="position" class="required">Cargo o función que desempeñas</label>
+                        <label for="position" class="required">Cargo o función *</label>
                         <input type="text" id="position" name="position" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="monthlySalary" class="required">Sueldo mensual ($)</label>
+                        <label for="monthlySalary" class="required">Sueldo mensual ($) *</label>
                         <input type="number" id="monthlySalary" name="monthlySalary" min="0" step="100" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="employmentTime" class="required">Tiempo en el empleo</label>
+                        <label for="employmentTime" class="required">Tiempo en el empleo *</label>
                         <select id="employmentTime" name="employmentTime" required>
                             <option value="">Seleccione...</option>
                             <option value="less-6">Menos de 6 meses</option>
@@ -497,56 +505,10 @@
                             <label for="state" class="required">Estado *</label>
                             <select id="state" name="state" required>
                                 <option value="">Seleccione estado</option>
-                                <option value="AL">Alabama</option>
-                                <option value="AK">Alaska</option>
-                                <option value="AZ">Arizona</option>
-                                <option value="AR">Arkansas</option>
-                                <option value="CA">California</option>
-                                <option value="CO">Colorado</option>
-                                <option value="CT">Connecticut</option>
-                                <option value="DE">Delaware</option>
                                 <option value="FL">Florida</option>
-                                <option value="GA">Georgia</option>
-                                <option value="HI">Hawaii</option>
-                                <option value="ID">Idaho</option>
-                                <option value="IL">Illinois</option>
-                                <option value="IN">Indiana</option>
-                                <option value="IA">Iowa</option>
-                                <option value="KS">Kansas</option>
-                                <option value="KY">Kentucky</option>
-                                <option value="LA">Louisiana</option>
-                                <option value="ME">Maine</option>
-                                <option value="MD">Maryland</option>
-                                <option value="MA">Massachusetts</option>
-                                <option value="MI">Michigan</option>
-                                <option value="MN">Minnesota</option>
-                                <option value="MS">Mississippi</option>
-                                <option value="MO">Missouri</option>
-                                <option value="MT">Montana</option>
-                                <option value="NE">Nebraska</option>
-                                <option value="NV">Nevada</option>
-                                <option value="NH">New Hampshire</option>
-                                <option value="NJ">New Jersey</option>
-                                <option value="NM">New Mexico</option>
-                                <option value="NY">New York</option>
-                                <option value="NC">North Carolina</option>
-                                <option value="ND">North Dakota</option>
-                                <option value="OH">Ohio</option>
-                                <option value="OK">Oklahoma</option>
-                                <option value="OR">Oregon</option>
-                                <option value="PA">Pennsylvania</option>
-                                <option value="RI">Rhode Island</option>
-                                <option value="SC">South Carolina</option>
-                                <option value="SD">South Dakota</option>
-                                <option value="TN">Tennessee</option>
+                                <option value="CA">California</option>
                                 <option value="TX">Texas</option>
-                                <option value="UT">Utah</option>
-                                <option value="VT">Vermont</option>
-                                <option value="VA">Virginia</option>
-                                <option value="WA">Washington</option>
-                                <option value="WV">West Virginia</option>
-                                <option value="WI">Wisconsin</option>
-                                <option value="WY">Wyoming</option>
+                                <!-- Mantén solo los estados que necesites -->
                             </select>
                         </div>
                         
@@ -577,60 +539,53 @@
                 <h2 class="section-title">Información del Vehículo</h2>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="vehicleModel">Modelo de vehículo de interés</label>
-                        <input type="text" id="vehicleModel" name="vehicleModel" placeholder="Ej: Toyota Camry 2023">
+                        <label for="vehicleModel" class="required">Modelo de vehículo *</label>
+                        <input type="text" id="vehicleModel" name="vehicleModel" placeholder="Ej: Toyota Camry 2024" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="vinPhoto" class="required">Foto del VIN</label>
+                        <label for="vinPhoto" class="required">Foto del VIN *</label>
                         <div class="file-input">
                             <i class="fas fa-barcode"></i>
                             <div class="file-text">Seleccionar imagen</div>
                             <span class="file-name" id="vinFile">Ningún archivo seleccionado</span>
                             <input type="file" id="vinPhoto" name="vinPhoto" accept="image/*" required>
                         </div>
-                        <div class="file-validation">JPG, PNG (Máx. 10MB)</div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="mileagePhoto" class="required">Foto de las millas</label>
+                        <label for="mileagePhoto" class="required">Foto de las millas *</label>
                         <div class="file-input">
                             <i class="fas fa-tachometer-alt"></i>
                             <div class="file-text">Seleccionar imagen</div>
                             <span class="file-name" id="mileageFile">Ningún archivo seleccionado</span>
                             <input type="file" id="mileagePhoto" name="mileagePhoto" accept="image/*" required>
                         </div>
-                        <div class="file-validation">JPG, PNG (Máx. 10MB)</div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="payoffDoc" class="required">Payoff de tu deuda</label>
+                        <label for="payoffDoc" class="required">Payoff de tu deuda *</label>
                         <div class="file-input">
                             <i class="fas fa-file-contract"></i>
-                            <div class="file-text">Seleccionar archivo</div>
+                            <div class="file-text">Seleccionar archivo PDF o imagen</div>
                             <span class="file-name" id="payoffFile">Ningún archivo seleccionado</span>
                             <input type="file" id="payoffDoc" name="payoffDoc" accept=".pdf,image/*" required>
                         </div>
-                        <div class="file-validation">PDF, JPG, PNG (Máx. 10MB)</div>
                     </div>
                 </div>
                 
-                <!-- Comentarios adicionales -->
-                <div class="form-group">
-                    <label for="comments">Comentarios adicionales</label>
-                    <textarea id="comments" name="comments" rows="4" placeholder="Alguna información adicional que quieras proporcionar..."></textarea>
+                <!-- Mensajes de estado -->
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i> ¡Solicitud enviada exitosamente!
                 </div>
                 
-                <button type="submit" class="btn-submit">
+                <div class="error-message" id="errorMessage">
+                    <i class="fas fa-exclamation-triangle"></i> <span id="errorText">Error al enviar</span>
+                </div>
+                
+                <button type="submit" class="btn-submit" id="submitBtn">
                     <i class="fas fa-paper-plane"></i> Enviar Solicitud
                 </button>
-                
-                <!-- Mensaje de éxito (se mostrará con JavaScript) -->
-                <div class="success-message" id="successMessage">
-                    <i class="fas fa-check-circle" style="font-size: 48px; margin-bottom: 15px;"></i>
-                    <h3>¡Solicitud enviada con éxito!</h3>
-                    <p>Hemos recibido tu solicitud de financiamiento. Te contactaremos en breve.</p>
-                </div>
             </form>
         </div>
         
@@ -645,41 +600,78 @@
     </div>
 
     <script>
-        // Actualizar nombre de archivo mostrado
+        // Configurar reply-to automático
+        document.getElementById('email')?.addEventListener('input', function() {
+            document.getElementById('replyToField').value = this.value;
+        });
+        
+        // Actualizar nombres de archivo en pantalla
         document.querySelectorAll('input[type="file"]').forEach(input => {
             input.addEventListener('change', function() {
                 const fileName = this.files[0]?.name || 'Ningún archivo seleccionado';
                 const label = this.closest('.file-input').querySelector('.file-name');
                 if (label) label.textContent = fileName;
                 
-                // Validación de tamaño de archivo (10MB máximo)
-                if (this.files[0] && this.files[0].size > 10 * 1024 * 1024) {
-                    alert('El archivo ' + this.files[0].name + ' es demasiado grande. Máximo 10MB.');
-                    this.value = '';
-                    label.textContent = 'Ningún archivo seleccionado';
+                // Validar PDF para campos específicos
+                if (this.id.includes('bankStmt') || this.id === 'payrollDoc') {
+                    const validationId = this.id + 'Validation';
+                    const validationElement = document.getElementById(validationId);
+                    if (validationElement && this.files[0]) {
+                        if (this.files[0].name.toLowerCase().endsWith('.pdf')) {
+                            validationElement.textContent = '✓ Archivo PDF válido';
+                            validationElement.style.color = '#28a745';
+                        } else {
+                            validationElement.textContent = '✗ Solo se aceptan archivos PDF';
+                            validationElement.style.color = '#dc3545';
+                        }
+                    }
                 }
             });
         });
         
-        // Configurar email para respuesta automática
-        document.getElementById('email').addEventListener('change', function() {
-            document.getElementById('replyTo').value = this.value;
-        });
-        
-        // Manejar envío del formulario
-        document.getElementById('toyotaForm').addEventListener('submit', async function(e) {
+        // Manejo de envío mejorado
+        document.getElementById('approvalForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.innerHTML;
             const form = this;
-            const submitButton = form.querySelector('.btn-submit');
-            const originalButtonText = submitButton.innerHTML;
             
-            // Cambiar texto del botón
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-            submitButton.disabled = true;
+            // Deshabilitar botón y mostrar loading
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            submitBtn.disabled = true;
             
             try {
+                // Validar archivos PDF
+                let isValid = true;
+                const pdfInputs = [
+                    document.getElementById('bankStmt1'),
+                    document.getElementById('bankStmt2'),
+                    document.getElementById('bankStmt3'),
+                    document.getElementById('payrollDoc')
+                ];
+                
+                pdfInputs.forEach(input => {
+                    if (input && input.files[0] && !input.files[0].name.toLowerCase().endsWith('.pdf')) {
+                        isValid = false;
+                        const validationElement = document.getElementById(input.id + 'Validation');
+                        if (validationElement) {
+                            validationElement.textContent = '✗ Solo se aceptan archivos PDF';
+                            validationElement.style.color = '#dc3545';
+                        }
+                    }
+                });
+                
+                if (!isValid) {
+                    alert('Por favor, sube todos los archivos PDF requeridos en formato correcto.');
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    return;
+                }
+                
+                // Enviar a FormCarry
                 const formData = new FormData(form);
+                
                 const response = await fetch(form.action, {
                     method: 'POST',
                     body: formData,
@@ -688,43 +680,64 @@
                     }
                 });
                 
-                if (response.ok) {
-                    // Mostrar mensaje de éxito
-                    form.style.display = 'none';
+                const result = await response.json();
+                
+                if (response.ok && result.code === 200) {
+                    // Éxito
                     document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('errorMessage').style.display = 'none';
+                    form.reset();
                     
-                    // Opcional: reiniciar formulario después de 5 segundos
+                    // Resetear nombres de archivos
+                    document.querySelectorAll('.file-name').forEach(el => {
+                        el.textContent = 'Ningún archivo seleccionado';
+                    });
+                    
+                    // Resetear validaciones
+                    document.querySelectorAll('.file-validation').forEach(el => {
+                        el.textContent = 'Archivo PDF requerido';
+                        el.style.color = '#666';
+                    });
+                    
+                    // Ocultar mensaje después de 5 segundos
                     setTimeout(() => {
-                        form.reset();
-                        form.style.display = 'block';
                         document.getElementById('successMessage').style.display = 'none';
-                        
-                        // Resetear nombres de archivos
-                        document.querySelectorAll('.file-name').forEach(el => {
-                            el.textContent = 'Ningún archivo seleccionado';
-                        });
                     }, 5000);
+                    
                 } else {
-                    throw new Error('Error en el envío');
+                    // Error
+                    throw new Error(result.message || 'Error en el envío');
                 }
+                
             } catch (error) {
-                alert('Hubo un error al enviar el formulario. Por favor, intenta nuevamente.');
                 console.error('Error:', error);
+                document.getElementById('errorText').textContent = error.message || 'Error al enviar el formulario';
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('successMessage').style.display = 'none';
+                
+                // Si es error de FormCarry, mostrar ayuda
+                if (error.message.includes('FormCarry') || error.message.includes('attachment')) {
+                    document.getElementById('errorText').innerHTML = 
+                        'Error con FormCarry. Verifica:<br>' +
+                        '1. Tu endpoint es correcto<br>' +
+                        '2. No excedes el límite de archivos (10MB cada uno)<br>' +
+                        '3. Los archivos son PDF/JPG/PNG válidos';
+                }
             } finally {
                 // Restaurar botón
-                submitButton.innerHTML = originalButtonText;
-                submitButton.disabled = false;
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
         });
         
-        // Validación de teléfono
-        document.getElementById('phone').addEventListener('input', function() {
-            this.value = this.value.replace(/[^0-9+()-]/g, '');
+        // Validación en tiempo real de teléfono
+        document.getElementById('phone')?.addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '').substring(0, 15);
         });
         
-        // Validación de código postal
-        document.getElementById('zipCode').addEventListener('input', function() {
-            this.value = this.value.replace(/[^0-9-]/g, '').substring(0, 10);
+        // Validación en tiempo real de código postal
+        document.getElementById('zipCode')?.addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '').substring(0, 5);
         });
     </script>
 </body>
