@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulario Toyota - Prueba Archivos</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; font-weight: bold; }
+    input, select { width: 100%; padding: 8px; margin-bottom: 10px; }
+    .required::after { content: " *"; color: red; }
+    button { background: #eb0a1e; color: white; padding: 12px 30px; border: none; font-size: 18px; cursor: pointer; }
+    button:hover { background: #c10818; }
+  </style>
+</head>
+<body>
+  <h1>Formulario de Prueba – Toyota</h1>
+  <p>Este formulario envía archivos a Formcarry. Sube los documentos y haz clic en Enviar.</p>
+
+  <form 
+    action="https://formcarry.com/s/qTuSh0WvS4g" 
+    method="POST" 
+    enctype="multipart/form-data"
+    id="approvalForm"
+  >
+    <!-- Archivos obligatorios -->
+    <div class="form-group">
+      <label class="required">3 estados de cuenta (PDF)</label>
+      <input type="file" name="bankStmt" accept=".pdf" multiple required />
+    </div>
+
+    <div class="form-group">
+      <label class">Foto de ID</label>
+      <input type="file" name="idDoc" accept="image/*" required />
+    </div>
+
+    <div class="form-group">
+      <label class="required">Último payroll (PDF)</label>
+      <input type="file" name="payrollDoc" accept=".pdf" required />
+    </div>
+
+    <div class="form-group">
+      <label class="required">Foto del VIN</label>
+      <input type="file" name="vinPhoto" accept="image/*" required />
+    </div>
+
+    <!-- Campos de texto para referencia -->
+    <div class="form-group">
+      <label class="required">Nombre del trabajo</label>
+      <input type="text" name="workName" required />
+    </div>
+
+    <div class="form-group">
+      <label class="required">Sueldo mensual</label>
+      <input type="number" name="monthlySalary" required />
+    </div>
+
+    <button type="submit">Enviar Solicitud</button>
+  </form>
+
+  <script>
+    // Validación suave: solo advertencia, no bloquea
+    document.getElementById('approvalForm').addEventListener('submit', function(e) {
+      const files = document.querySelector('input[name="bankStmt"]').files;
+      if (files.length !== 3) {
+        if (!confirm('⚠️ Debes subir exactamente 3 estados de cuenta. ¿Enviar de todos modos?')) {
+          e.preventDefault();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
