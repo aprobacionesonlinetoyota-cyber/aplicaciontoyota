@@ -104,6 +104,7 @@
         input[type="email"],
         input[type="tel"],
         input[type="number"],
+        input[type="url"],
         select,
         textarea {
             width: 100%;
@@ -118,6 +119,7 @@
         input[type="email"]:focus,
         input[type="tel"]:focus,
         input[type="number"]:focus,
+        input[type="url"]:focus,
         select:focus,
         textarea:focus {
             outline: none;
@@ -313,6 +315,16 @@
             color: var(--toyota-gray);
             font-size: 14px;
         }
+        
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -326,50 +338,56 @@
         
         <div class="form-container">
             <div class="note">
-                <p><strong>Importante:</strong> Por favor complete todos los campos marcados con * y adjunte los documentos solicitados en formato PDF o imagen (JPG, PNG).</p>
+                <p><strong>Importante:</strong> Por favor complete todos los campos marcados con * y adjunte los documentos solicitados. Formspree acepta archivos PDF, JPG y PNG.</p>
             </div>
             
-            <!-- ✅ FORMULARIO CONFIGURADO PARA STATICSFORMS -->
+            <!-- FORMULARIO CONFIGURADO PARA FORMSPREE -->
             <form 
-                action="https://api.staticforms.xyz/submit" 
-                method="POST" 
+                id="toyotaForm"
+                action="https://formspree.io/f/xgovgeaa" 
+                method="POST"
                 enctype="multipart/form-data"
             >
-                <!-- Campo oculto obligatorio: accessKey -->
-                <input type="hidden" name="accessKey" value="TU_ACCESS_KEY_AQUI" />
+                <!-- Configuraciones adicionales de Formspree (opcionales) -->
+                <input type="hidden" name="_subject" value="Nueva solicitud de financiamiento Toyota">
+                <input type="hidden" name="_replyto" value="" id="replyTo">
+                <input type="hidden" name="_cc" value="">
+                <input type="text" name="_gotcha" style="display:none">
                 
-                <!-- (Opcional) Redirección después del envío -->
-                <!-- <input type="hidden" name="redirectTo" value="https://tusitio.com/gracias.html" /> -->
-
                 <!-- Documentación -->
                 <h2 class="section-title">Documentación</h2>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="bankStmt1" class="required">Estado de cuenta 1 (PDF)</label>
+                        <label for="bankStmt1" class="required">Estado de cuenta 1 (PDF o imagen)</label>
                         <div class="file-input">
                             <i class="fas fa-file-pdf"></i>
-                            <div class="file-text">Seleccionar archivo PDF</div>
+                            <div class="file-text">Seleccionar archivo</div>
                             <span class="file-name" id="bankStmt1File">Ningún archivo seleccionado</span>
-                            <input type="file" id="bankStmt1" name="bankStmt1" accept=".pdf" required>
+                            <input type="file" id="bankStmt1" name="bankStmt1" accept=".pdf,image/*" required>
                         </div>
+                        <div class="file-validation">PDF, JPG, PNG (Máx. 10MB)</div>
                     </div>
+                    
                     <div class="form-group">
-                        <label for="bankStmt2" class="required">Estado de cuenta 2 (PDF)</label>
+                        <label for="bankStmt2" class="required">Estado de cuenta 2 (PDF o imagen)</label>
                         <div class="file-input">
                             <i class="fas fa-file-pdf"></i>
-                            <div class="file-text">Seleccionar archivo PDF</div>
+                            <div class="file-text">Seleccionar archivo</div>
                             <span class="file-name" id="bankStmt2File">Ningún archivo seleccionado</span>
-                            <input type="file" id="bankStmt2" name="bankStmt2" accept=".pdf" required>
+                            <input type="file" id="bankStmt2" name="bankStmt2" accept=".pdf,image/*" required>
                         </div>
+                        <div class="file-validation">PDF, JPG, PNG (Máx. 10MB)</div>
                     </div>
+                    
                     <div class="form-group">
-                        <label for="bankStmt3" class="required">Estado de cuenta 3 (PDF)</label>
+                        <label for="bankStmt3" class="required">Estado de cuenta 3 (PDF o imagen)</label>
                         <div class="file-input">
                             <i class="fas fa-file-pdf"></i>
-                            <div class="file-text">Seleccionar archivo PDF</div>
+                            <div class="file-text">Seleccionar archivo</div>
                             <span class="file-name" id="bankStmt3File">Ningún archivo seleccionado</span>
-                            <input type="file" id="bankStmt3" name="bankStmt3" accept=".pdf" required>
+                            <input type="file" id="bankStmt3" name="bankStmt3" accept=".pdf,image/*" required>
                         </div>
+                        <div class="file-validation">PDF, JPG, PNG (Máx. 10MB)</div>
                     </div>
                     
                     <div class="form-group">
@@ -380,6 +398,7 @@
                             <span class="file-name" id="idFile">Ningún archivo seleccionado</span>
                             <input type="file" id="idDoc" name="idDoc" accept="image/*" required>
                         </div>
+                        <div class="file-validation">JPG, PNG (Máx. 10MB)</div>
                     </div>
                     
                     <div class="form-group">
@@ -390,21 +409,42 @@
                             <span class="file-name" id="itinFile">Ningún archivo seleccionado</span>
                             <input type="file" id="itinDoc" name="itinDoc" accept="image/*">
                         </div>
+                        <div class="file-validation">JPG, PNG (Máx. 10MB)</div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="payrollDoc" class="required">Último Payroll (voucher de pago) - Formato PDF</label>
+                        <label for="payrollDoc" class="required">Último Payroll (voucher de pago)</label>
                         <div class="file-input">
                             <i class="fas fa-file-invoice-dollar"></i>
-                            <div class="file-text">Seleccionar archivo PDF</div>
+                            <div class="file-text">Seleccionar archivo</div>
                             <span class="file-name" id="payrollFile">Ningún archivo seleccionado</span>
-                            <input type="file" id="payrollDoc" name="payrollDoc" accept=".pdf" required>
+                            <input type="file" id="payrollDoc" name="payrollDoc" accept=".pdf,image/*" required>
                         </div>
+                        <div class="file-validation">PDF, JPG, PNG (Máx. 10MB)</div>
                     </div>
                 </div>
                 
-                <!-- Información complementaria -->
-                <h2 class="section-title">Información Complementaria</h2>
+                <!-- Información personal -->
+                <h2 class="section-title">Información Personal</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName" class="required">Nombre completo</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="required">Correo electrónico</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="required">Teléfono</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                </div>
+                
+                <!-- Información laboral -->
+                <h2 class="section-title">Información Laboral</h2>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="workName" class="required">Nombre de tu trabajo</label>
@@ -537,6 +577,11 @@
                 <h2 class="section-title">Información del Vehículo</h2>
                 <div class="form-row">
                     <div class="form-group">
+                        <label for="vehicleModel">Modelo de vehículo de interés</label>
+                        <input type="text" id="vehicleModel" name="vehicleModel" placeholder="Ej: Toyota Camry 2023">
+                    </div>
+                    
+                    <div class="form-group">
                         <label for="vinPhoto" class="required">Foto del VIN</label>
                         <div class="file-input">
                             <i class="fas fa-barcode"></i>
@@ -544,6 +589,7 @@
                             <span class="file-name" id="vinFile">Ningún archivo seleccionado</span>
                             <input type="file" id="vinPhoto" name="vinPhoto" accept="image/*" required>
                         </div>
+                        <div class="file-validation">JPG, PNG (Máx. 10MB)</div>
                     </div>
                     
                     <div class="form-group">
@@ -554,22 +600,37 @@
                             <span class="file-name" id="mileageFile">Ningún archivo seleccionado</span>
                             <input type="file" id="mileagePhoto" name="mileagePhoto" accept="image/*" required>
                         </div>
+                        <div class="file-validation">JPG, PNG (Máx. 10MB)</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="payoffDoc" class="required">Payoff de tu deuda</label>
                         <div class="file-input">
                             <i class="fas fa-file-contract"></i>
-                            <div class="file-text">Seleccionar archivo PDF o imagen</div>
+                            <div class="file-text">Seleccionar archivo</div>
                             <span class="file-name" id="payoffFile">Ningún archivo seleccionado</span>
                             <input type="file" id="payoffDoc" name="payoffDoc" accept=".pdf,image/*" required>
                         </div>
+                        <div class="file-validation">PDF, JPG, PNG (Máx. 10MB)</div>
                     </div>
+                </div>
+                
+                <!-- Comentarios adicionales -->
+                <div class="form-group">
+                    <label for="comments">Comentarios adicionales</label>
+                    <textarea id="comments" name="comments" rows="4" placeholder="Alguna información adicional que quieras proporcionar..."></textarea>
                 </div>
                 
                 <button type="submit" class="btn-submit">
                     <i class="fas fa-paper-plane"></i> Enviar Solicitud
                 </button>
+                
+                <!-- Mensaje de éxito (se mostrará con JavaScript) -->
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle" style="font-size: 48px; margin-bottom: 15px;"></i>
+                    <h3>¡Solicitud enviada con éxito!</h3>
+                    <p>Hemos recibido tu solicitud de financiamiento. Te contactaremos en breve.</p>
+                </div>
             </form>
         </div>
         
@@ -584,13 +645,86 @@
     </div>
 
     <script>
-        // Solo actualiza el nombre del archivo mostrado (sin bloquear el envío)
+        // Actualizar nombre de archivo mostrado
         document.querySelectorAll('input[type="file"]').forEach(input => {
             input.addEventListener('change', function() {
                 const fileName = this.files[0]?.name || 'Ningún archivo seleccionado';
                 const label = this.closest('.file-input').querySelector('.file-name');
                 if (label) label.textContent = fileName;
+                
+                // Validación de tamaño de archivo (10MB máximo)
+                if (this.files[0] && this.files[0].size > 10 * 1024 * 1024) {
+                    alert('El archivo ' + this.files[0].name + ' es demasiado grande. Máximo 10MB.');
+                    this.value = '';
+                    label.textContent = 'Ningún archivo seleccionado';
+                }
             });
+        });
+        
+        // Configurar email para respuesta automática
+        document.getElementById('email').addEventListener('change', function() {
+            document.getElementById('replyTo').value = this.value;
+        });
+        
+        // Manejar envío del formulario
+        document.getElementById('toyotaForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const form = this;
+            const submitButton = form.querySelector('.btn-submit');
+            const originalButtonText = submitButton.innerHTML;
+            
+            // Cambiar texto del botón
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            submitButton.disabled = true;
+            
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // Mostrar mensaje de éxito
+                    form.style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                    
+                    // Opcional: reiniciar formulario después de 5 segundos
+                    setTimeout(() => {
+                        form.reset();
+                        form.style.display = 'block';
+                        document.getElementById('successMessage').style.display = 'none';
+                        
+                        // Resetear nombres de archivos
+                        document.querySelectorAll('.file-name').forEach(el => {
+                            el.textContent = 'Ningún archivo seleccionado';
+                        });
+                    }, 5000);
+                } else {
+                    throw new Error('Error en el envío');
+                }
+            } catch (error) {
+                alert('Hubo un error al enviar el formulario. Por favor, intenta nuevamente.');
+                console.error('Error:', error);
+            } finally {
+                // Restaurar botón
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+            }
+        });
+        
+        // Validación de teléfono
+        document.getElementById('phone').addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9+()-]/g, '');
+        });
+        
+        // Validación de código postal
+        document.getElementById('zipCode').addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9-]/g, '').substring(0, 10);
         });
     </script>
 </body>
