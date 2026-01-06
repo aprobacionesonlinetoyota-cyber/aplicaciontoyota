@@ -329,21 +329,46 @@
                 <p><strong>Importante:</strong> Por favor complete todos los campos marcados con * y adjunte los documentos solicitados en formato PDF o imagen (JPG, PNG).</p>
             </div>
             
+            <!-- ✅ FORMULARIO CONFIGURADO PARA STATICSFORMS -->
             <form 
-                action="https://formcarry.com/s/qTuSh0WvS4g" 
+                action="https://api.staticforms.xyz/submit" 
                 method="POST" 
                 enctype="multipart/form-data"
             >
+                <!-- Campo oculto obligatorio: accessKey -->
+                <input type="hidden" name="accessKey" value="TU_ACCESS_KEY_AQUI" />
+                
+                <!-- (Opcional) Redirección después del envío -->
+                <!-- <input type="hidden" name="redirectTo" value="https://tusitio.com/gracias.html" /> -->
+
                 <!-- Documentación -->
                 <h2 class="section-title">Documentación</h2>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="bankStmt" class="required">3 últimos estados de cuenta bancarios (PDF)</label>
+                        <label for="bankStmt1" class="required">Estado de cuenta 1 (PDF)</label>
                         <div class="file-input">
                             <i class="fas fa-file-pdf"></i>
-                            <div class="file-text">Seleccionar archivos PDF</div>
-                            <span class="file-name" id="bankStmtFile">Ningún archivo seleccionado</span>
-                            <input type="file" id="bankStmt" name="bankStmt" accept=".pdf" multiple required>
+                            <div class="file-text">Seleccionar archivo PDF</div>
+                            <span class="file-name" id="bankStmt1File">Ningún archivo seleccionado</span>
+                            <input type="file" id="bankStmt1" name="bankStmt1" accept=".pdf" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bankStmt2" class="required">Estado de cuenta 2 (PDF)</label>
+                        <div class="file-input">
+                            <i class="fas fa-file-pdf"></i>
+                            <div class="file-text">Seleccionar archivo PDF</div>
+                            <span class="file-name" id="bankStmt2File">Ningún archivo seleccionado</span>
+                            <input type="file" id="bankStmt2" name="bankStmt2" accept=".pdf" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bankStmt3" class="required">Estado de cuenta 3 (PDF)</label>
+                        <div class="file-input">
+                            <i class="fas fa-file-pdf"></i>
+                            <div class="file-text">Seleccionar archivo PDF</div>
+                            <span class="file-name" id="bankStmt3File">Ningún archivo seleccionado</span>
+                            <input type="file" id="bankStmt3" name="bankStmt3" accept=".pdf" required>
                         </div>
                     </div>
                     
