@@ -1,760 +1,196 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Aprobación - Toyota</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --toyota-red: #eb0a1e;
-            --toyota-dark-red: #c10818;
-            --toyota-gray: #333333;
-            --toyota-light-gray: #f5f5f5;
-            --toyota-white: #ffffff;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--toyota-light-gray);
-            color: var(--toyota-gray);
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--toyota-red), var(--toyota-dark-red));
-            color: var(--toyota-white);
-            padding: 30px 0;
-            text-align: center;
-            margin-bottom: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .logo i {
-            margin-right: 10px;
-        }
-        
-        .header-text {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .form-container {
-            background: var(--toyota-white);
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-        
-        .section-title {
-            color: var(--toyota-red);
-            margin: 25px 0 15px 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--toyota-red);
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-        
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            margin: 0 -10px;
-        }
-        
-        .form-group {
-            flex: 1 0 300px;
-            padding: 0 10px;
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--toyota-gray);
-        }
-        
-        .required::after {
-            content: " *";
-            color: var(--toyota-red);
-        }
-        
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-        }
-        
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="tel"]:focus,
-        input[type="number"]:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: var(--toyota-red);
-        }
-        
-        .file-input {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            background: var(--toyota-white);
-            border: 2px dashed #ddd;
-            border-radius: 5px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
-        }
-        
-        .file-input:hover {
-            background: var(--toyota-light-gray);
-            border-color: var(--toyota-red);
-        }
-        
-        .file-input input[type="file"] {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-        
-        .file-input i {
-            color: var(--toyota-red);
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-        
-        .file-input .file-text {
-            color: var(--toyota-gray);
-        }
-        
-        .file-input .file-name {
-            display: block;
-            margin-top: 5px;
-            font-size: 14px;
-            color: var(--toyota-red);
-            font-weight: 600;
-        }
-        
-        .btn-submit {
-            background: linear-gradient(135deg, var(--toyota-red), var(--toyota-dark-red));
-            color: var(--toyota-white);
-            padding: 15px 40px;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            display: block;
-            margin: 30px auto 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(235, 10, 30, 0.3);
-        }
-        
-        .btn-submit:active {
-            transform: translateY(0);
-        }
-        
-        .note {
-            background: #fff8e1;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 0 5px 5px 0;
-        }
-        
-        .note p {
-            margin: 0;
-            font-size: 14px;
-        }
-        
-        .file-validation {
-            margin-top: 5px;
-            font-size: 12px;
-            color: #666;
-        }
-        
-        .file-error {
-            color: #dc3545;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-        
-        .residential-info {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-        
-        .residential-info h3 {
-            color: var(--toyota-red);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--toyota-red);
-            font-size: 1.2rem;
-        }
-        
-        .residential-fields {
-            display: grid;
-            gap: 15px;
-        }
-        
-        .residential-field {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .residential-field label {
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-        
-        .residential-field input,
-        .residential-field select {
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        
-        .residential-field input:focus,
-        .residential-field select:focus {
-            outline: none;
-            border-color: var(--toyota-red);
-        }
-        
-        .whatsapp-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #25d366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            z-index: 1000;
-            transition: transform 0.2s ease;
-        }
-        
-        .whatsapp-btn:hover {
-            transform: scale(1.1);
-            background: #20b859;
-        }
-        
-        @media (max-width: 768px) {
-            .form-group {
-                flex: 1 0 100%;
-            }
-            
-            .header-text {
-                font-size: 1rem;
-            }
-            
-            .logo {
-                font-size: 2rem;
-            }
-            
-            .residential-info {
-                padding: 15px;
-            }
-        }
-        
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--toyota-gray);
-            font-size: 14px;
-        }
-        
-        /* Mensajes de estado */
-        .success-message {
-            display: none;
-            background: #d4edda;
-            color: #155724;
-            padding: 20px;
-            border-radius: 5px;
-            margin: 20px 0;
-            text-align: center;
-            border-left: 5px solid #28a745;
-        }
-        
-        .error-message {
-            display: none;
-            background: #f8d7da;
-            color: #721c24;
-            padding: 20px;
-            border-radius: 5px;
-            margin: 20px 0;
-            text-align: center;
-            border-left: 5px solid #dc3545;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fas fa-car"></i> TOYOTA
-            </div>
-            <p class="header-text">Formulario de Aprobación para Financiamiento de Vehículo</p>
-        </header>
-        
-        <div class="form-container">
-            <!-- ✅ NOTA IMPORTANTE SOBRE FORM SUBMIT -->
-            <div class="note" style="background: #e8f4fc; border-left-color: #2196F3;">
-                <p><strong><i class="fas fa-paperclip"></i> IMPORTANTE:</strong> Con FormSubmit, los archivos se envían <strong>adjuntos directamente al email</strong>. Llegan como archivos adjuntos normales.</p>
-            </div>
-            
-            <!-- ✅ FORMULARIO CONFIGURADO PARA FORM SUBMIT -->
-            <!-- REEMPLAZA 'aprobacionesonlinetoyota@gmail.com' CON TU EMAIL -->
-            <form 
-                action="https://formsubmit.co/aprobacionesonlinetoyota@gmail.com" 
-                method="POST" 
-                enctype="multipart/form-data"
-                id="approvalForm"
-            >
-                <!-- CONFIGURACIÓN FORM SUBMIT -->
-                <input type="hidden" name="_subject" value="NUEVA APLICACIÓN TOYOTA - Documentos Adjuntos">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_autoresponse" value="Gracias por su aplicación. Hemos recibido sus documentos.">
-                <input type="hidden" name="_cc" value="aprobacionesonlinetoyota@gmail.com">
-                <input type="hidden" name="_replyto" value="" id="replyToField">
-                <input type="text" name="_honey" style="display:none">
-                <input type="hidden" name="_captcha" value="false">
-                
-                <!-- Información Personal (OBLIGATORIO) -->
-                <h2 class="section-title">Información Personal</h2>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="fullName" class="required">Nombre completo *</label>
-                        <input type="text" id="fullName" name="Nombre Completo" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email" class="required">Correo electrónico *</label>
-                        <input type="email" id="email" name="Email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phone" class="required">Teléfono *</label>
-                        <input type="tel" id="phone" name="Teléfono" required>
-                    </div>
-                </div>
-                
-                <!-- Documentación -->
-                <h2 class="section-title">Documentación</h2>
-                <div class="note">
-                    <p><strong><i class="fas fa-file-pdf"></i> Formatos aceptados:</strong> PDF, JPG, PNG (Máximo 25MB por archivo)</p>
-                </div>
-                
-                <div class="form-row">
-                    <!-- Estados de cuenta SEPARADOS -->
-                    <div class="form-group">
-                        <label for="bankStmt1" class="required">Estado de cuenta 1 (PDF) *</label>
-                        <div class="file-input">
-                            <i class="fas fa-file-pdf"></i>
-                            <div class="file-text">Seleccionar archivo PDF</div>
-                            <span class="file-name" id="bankStmt1File">Ningún archivo seleccionado</span>
-                            <input type="file" id="bankStmt1" name="Estado de Cuenta 1" accept=".pdf" required>
-                        </div>
-                        <div class="file-validation" id="bankStmt1Validation">Archivo PDF requerido</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="bankStmt2" class="required">Estado de cuenta 2 (PDF) *</label>
-                        <div class="file-input">
-                            <i class="fas fa-file-pdf"></i>
-                            <div class="file-text">Seleccionar archivo PDF</div>
-                            <span class="file-name" id="bankStmt2File">Ningún archivo seleccionado</span>
-                            <input type="file" id="bankStmt2" name="Estado de Cuenta 2" accept=".pdf" required>
-                        </div>
-                        <div class="file-validation" id="bankStmt2Validation">Archivo PDF requerido</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="bankStmt3" class="required">Estado de cuenta 3 (PDF) *</label>
-                        <div class="file-input">
-                            <i class="fas fa-file-pdf"></i>
-                            <div class="file-text">Seleccionar archivo PDF</div>
-                            <span class="file-name" id="bankStmt3File">Ningún archivo seleccionado</span>
-                            <input type="file" id="bankStmt3" name="Estado de Cuenta 3" accept=".pdf" required>
-                        </div>
-                        <div class="file-validation" id="bankStmt3Validation">Archivo PDF requerido</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="idDoc" class="required">Foto de ID y/o licencia *</label>
-                        <div class="file-input">
-                            <i class="fas fa-id-card"></i>
-                            <div class="file-text">Seleccionar imagen</div>
-                            <span class="file-name" id="idFile">Ningún archivo seleccionado</span>
-                            <input type="file" id="idDoc" name="Identificación" accept="image/*" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="itinDoc">Foto del Social o ITIN number</label>
-                        <div class="file-input">
-                            <i class="fas fa-passport"></i>
-                            <div class="file-text">Seleccionar imagen</div>
-                            <span class="file-name" id="itinFile">Ningún archivo seleccionado</span>
-                            <input type="file" id="itinDoc" name="ITIN o SSN" accept="image/*">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="payrollDoc" class="required">Último Payroll (PDF) *</label>
-                        <div class="file-input">
-                            <i class="fas fa-file-invoice-dollar"></i>
-                            <div class="file-text">Seleccionar archivo PDF</div>
-                            <span class="file-name" id="payrollFile">Ningún archivo seleccionado</span>
-                            <input type="file" id="payrollDoc" name="Recibo de Nómina" accept=".pdf" required>
-                        </div>
-                        <div class="file-validation" id="payrollValidation">Archivo PDF requerido</div>
-                    </div>
-                </div>
-                
-                <!-- Información complementaria -->
-                <h2 class="section-title">Información Complementaria</h2>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="workName" class="required">Nombre de tu trabajo *</label>
-                        <input type="text" id="workName" name="Empresa" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="workAddress" class="required">Dirección de tu trabajo *</label>
-                        <input type="text" id="workAddress" name="Dirección del Trabajo" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="position" class="required">Cargo o función *</label>
-                        <input type="text" id="position" name="Cargo" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="monthlySalary" class="required">Sueldo mensual ($) *</label>
-                        <input type="number" id="monthlySalary" name="Salario Mensual" min="0" step="100" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="employmentTime" class="required">Tiempo en el empleo *</label>
-                        <select id="employmentTime" name="Tiempo en el Empleo" required>
-                            <option value="">Seleccione...</option>
-                            <option value="Menos de 6 meses">Menos de 6 meses</option>
-                            <option value="6 a 12 meses">6 a 12 meses</option>
-                            <option value="1 a 2 años">1 a 2 años</option>
-                            <option value="2 a 5 años">2 a 5 años</option>
-                            <option value="Más de 5 años">Más de 5 años</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <!-- Información residencial -->
-                <div class="residential-info">
-                    <h3>Información residencial</h3>
-                    <div class="residential-fields">
-                        <div class="residential-field">
-                            <label for="streetAddress" class="required">Dirección de la calle *</label>
-                            <input type="text" id="streetAddress" name="Dirección Residencial" required>
-                        </div>
-                        
-                        <div class="residential-field">
-                            <label for="city" class="required">Ciudad *</label>
-                            <input type="text" id="city" name="Ciudad" required>
-                        </div>
-                        
-                        <div class="residential-field">
-                            <label for="state" class="required">Estado *</label>
-                            <select id="state" name="Estado" required>
-                                <option value="">Seleccione estado</option>
-                                <option value="FL">Florida</option>
-                                <option value="CA">California</option>
-                                <option value="TX">Texas</option>
-                                <option value="NY">New York</option>
-                            </select>
-                        </div>
-                        
-                        <div class="residential-field">
-                            <label for="zipCode" class="required">Código postal *</label>
-                            <input type="text" id="zipCode" name="Código Postal" required>
-                        </div>
-                        
-                        <div class="residential-field">
-                            <label for="housingType" class="required">Tipo de vivienda *</label>
-                            <select id="housingType" name="Tipo de Vivienda" required>
-                                <option value="">Seleccione tipo de vivienda</option>
-                                <option value="Propia">Propia</option>
-                                <option value="Alquilada">Alquilada</option>
-                                <option value="Vive con familia">Vive con familia</option>
-                                <option value="Otro">Otro</option>
-                            </select>
-                        </div>
-                        
-                        <div class="residential-field">
-                            <label for="monthlyRent" class="required">Monto de alquiler/hipoteca mensual *</label>
-                            <input type="number" id="monthlyRent" name="Pago Mensual Vivienda" min="0" step="10" required>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Información del vehículo -->
-                <h2 class="section-title">Información del Vehículo</h2>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="vehicleModel" class="required">Modelo de vehículo *</label>
-                        <input type="text" id="vehicleModel" name="Modelo del Vehículo" placeholder="Ej: Toyota Camry 2024" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="vinPhoto" class="required">Foto del VIN *</label>
-                        <div class="file-input">
-                            <i class="fas fa-barcode"></i>
-                            <div class="file-text">Seleccionar imagen</div>
-                            <span class="file-name" id="vinFile">Ningún archivo seleccionado</span>
-                            <input type="file" id="vinPhoto" name="Foto del VIN" accept="image/*" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="mileagePhoto" class="required">Foto de las millas *</label>
-                        <div class="file-input">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <div class="file-text">Seleccionar imagen</div>
-                            <span class="file-name" id="mileageFile">Ningún archivo seleccionado</span>
-                            <input type="file" id="mileagePhoto" name="Foto del Odómetro" accept="image/*" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="payoffDoc" class="required">Payoff de tu deuda *</label>
-                        <div class="file-input">
-                            <i class="fas fa-file-contract"></i>
-                            <div class="file-text">Seleccionar archivo PDF o imagen</div>
-                            <span class="file-name" id="payoffFile">Ningún archivo seleccionado</span>
-                            <input type="file" id="payoffDoc" name="Documento de Payoff" accept=".pdf,image/*" required>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Mensajes de estado -->
-                <div class="success-message" id="successMessage">
-                    <i class="fas fa-check-circle fa-2x"></i>
-                    <h3>¡Solicitud enviada exitosamente!</h3>
-                    <p>Los documentos han sido enviados adjuntos al email. Revisa tu bandeja de entrada.</p>
-                </div>
-                
-                <div class="error-message" id="errorMessage">
-                    <i class="fas fa-exclamation-triangle fa-2x"></i>
-                    <h3>Error al enviar</h3>
-                    <p id="errorText">Por favor, intenta nuevamente.</p>
-                </div>
-                
-                <button type="submit" class="btn-submit" id="submitBtn">
-                    <i class="fas fa-paper-plane"></i> Enviar Solicitud y Documentos
-                </button>
-            </form>
-        </div>
-        
-        <!-- Botón de WhatsApp -->
-        <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-btn">
-            <i class="fab fa-whatsapp"></i>
-        </a>
-        
-        <footer>
-            <p>© 2026 Toyota. Formulario procesado por FormSubmit</p>
-        </footer>
-    </div>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario de Aprobación - Toyota</title>
 
-    <script>
-        // Configurar reply-to automático
-        document.getElementById('email')?.addEventListener('input', function() {
-            document.getElementById('replyToField').value = this.value;
-        });
-        
-        // Actualizar nombres de archivo en pantalla
-        document.querySelectorAll('input[type="file"]').forEach(input => {
-            input.addEventListener('change', function() {
-                const fileName = this.files[0]?.name || 'Ningún archivo seleccionado';
-                const label = this.closest('.file-input').querySelector('.file-name');
-                if (label) label.textContent = fileName;
-                
-                // Validar tamaño máximo (25MB para FormSubmit)
-                if (this.files[0] && this.files[0].size > 25 * 1024 * 1024) {
-                    alert('El archivo ' + this.files[0].name + ' es demasiado grande. Máximo 25MB.');
-                    this.value = '';
-                    label.textContent = 'Ningún archivo seleccionado';
-                }
-                
-                // Validar PDF para campos específicos
-                if (this.id.includes('bankStmt') || this.id === 'payrollDoc') {
-                    const validationId = this.id + 'Validation';
-                    const validationElement = document.getElementById(validationId);
-                    if (validationElement && this.files[0]) {
-                        if (this.files[0].name.toLowerCase().endsWith('.pdf')) {
-                            validationElement.textContent = '✓ Archivo PDF válido';
-                            validationElement.style.color = '#28a745';
-                        } else {
-                            validationElement.textContent = '✗ Solo se aceptan archivos PDF';
-                            validationElement.style.color = '#dc3545';
-                        }
-                    }
-                }
-            });
-        });
-        
-        // Manejo de envío con FormSubmit
-        document.getElementById('approvalForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const originalText = submitBtn.innerHTML;
-            const form = this;
-            
-            // Deshabilitar botón y mostrar loading
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando documentos...';
-            submitBtn.disabled = true;
-            
-            // Ocultar mensajes anteriores
-            document.getElementById('successMessage').style.display = 'none';
-            document.getElementById('errorMessage').style.display = 'none';
-            
-            try {
-                // Validar archivos PDF
-                let isValid = true;
-                const pdfInputs = [
-                    document.getElementById('bankStmt1'),
-                    document.getElementById('bankStmt2'),
-                    document.getElementById('bankStmt3'),
-                    document.getElementById('payrollDoc')
-                ];
-                
-                pdfInputs.forEach(input => {
-                    if (input && input.files[0] && !input.files[0].name.toLowerCase().endsWith('.pdf')) {
-                        isValid = false;
-                        const validationElement = document.getElementById(input.id + 'Validation');
-                        if (validationElement) {
-                            validationElement.textContent = '✗ Solo se aceptan archivos PDF';
-                            validationElement.style.color = '#dc3545';
-                        }
-                    }
-                });
-                
-                if (!isValid) {
-                    alert('Por favor, sube todos los archivos PDF requeridos en formato correcto.');
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                    return;
-                }
-                
-                // Enviar a FormSubmit
-                const formData = new FormData(form);
-                
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (response.ok) {
-                    // Éxito - FormSubmit redirige automáticamente
-                    document.getElementById('successMessage').style.display = 'block';
-                    
-                    // Opcional: Limpiar formulario después de éxito
-                    setTimeout(() => {
-                        form.reset();
-                        document.querySelectorAll('.file-name').forEach(el => {
-                            el.textContent = 'Ningún archivo seleccionado';
-                        });
-                        document.querySelectorAll('.file-validation').forEach(el => {
-                            el.textContent = 'Archivo PDF requerido';
-                            el.style.color = '#666';
-                        });
-                        document.getElementById('successMessage').style.display = 'none';
-                    }, 5000);
-                    
-                } else {
-                    throw new Error(`Error HTTP ${response.status}`);
-                }
-                
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('errorText').textContent = 'Error al enviar. Intenta nuevamente o contacta por WhatsApp.';
-                document.getElementById('errorMessage').style.display = 'block';
-                
-                // Mostrar ayuda específica
-                setTimeout(() => {
-                    document.getElementById('errorText').innerHTML = 
-                        'Si el problema persiste:<br>' +
-                        '1. Verifica tu conexión a internet<br>' +
-                        '2. Prueba con archivos más pequeños (<10MB)<br>' +
-                        '3. Contacta al equipo: ' + 
-                        '<a href="https://wa.me/1234567890" style="color: #25d366; font-weight: bold;">WhatsApp</a>';
-                }, 2000);
-                
-            } finally {
-                // Restaurar botón
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            }
-        });
-        
-        // Validación en tiempo real de teléfono
-        document.getElementById('phone')?.addEventListener('input', function(e) {
-            this.value = this.value.replace(/\D/g, '').substring(0, 15);
-        });
-        
-        // Validación en tiempo real de código postal
-        document.getElementById('zipCode')?.addEventListener('input', function(e) {
-            this.value = this.value.replace(/\D/g, '').substring(0, 5);
-        });
-    </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root{
+--toyota-red:#eb0a1e;
+--toyota-dark-red:#c10818;
+--toyota-gray:#333;
+--toyota-light:#f5f5f5;
+--white:#fff;
+}
+*{box-sizing:border-box;font-family:Segoe UI,Tahoma,sans-serif}
+body{margin:0;background:var(--toyota-light)}
+.container{max-width:1200px;margin:auto;padding:20px}
+header{background:linear-gradient(135deg,var(--toyota-red),var(--toyota-dark-red));color:#fff;text-align:center;padding:30px;border-radius:10px}
+.logo{font-size:2.5rem;font-weight:700}
+.form-container{background:#fff;margin-top:30px;padding:30px;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.section-title{color:var(--toyota-red);border-bottom:2px solid var(--toyota-red);padding-bottom:8px;margin:30px 0 20px}
+.form-row{display:flex;flex-wrap:wrap;margin:0 -10px}
+.form-group{flex:1 0 300px;padding:0 10px;margin-bottom:20px}
+label{font-weight:600;display:block;margin-bottom:6px}
+input,select{width:100%;padding:12px;border:2px solid #ddd;border-radius:5px}
+input:focus,select:focus{border-color:var(--toyota-red);outline:none}
+.file-input{border:2px dashed #ddd;border-radius:6px;padding:20px;text-align:center;cursor:pointer;position:relative}
+.file-input input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.file-input i{font-size:40px;color:var(--toyota-red)}
+.file-name{margin-top:6px;color:var(--toyota-red);font-size:14px;font-weight:600}
+button{background:linear-gradient(135deg,var(--toyota-red),var(--toyota-dark-red));color:#fff;border:none;padding:15px 40px;font-size:18px;border-radius:6px;cursor:pointer;margin:40px auto 0;display:block}
+button:hover{transform:translateY(-2px)}
+footer{text-align:center;margin-top:40px;color:#555}
+@media(max-width:768px){.form-group{flex:1 0 100%}}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+<div class="logo"><i class="fas fa-car"></i> TOYOTA</div>
+<p>Formulario de Aprobación para Financiamiento</p>
+</header>
+
+<div class="form-container">
+
+<form
+  action="https://formscarry.com/s/TU_FORM_ID_AQUI"
+  method="POST"
+  enctype="multipart/form-data"
+>
+
+<!-- ================= INFORMACIÓN PERSONAL ================= -->
+<h2 class="section-title">Información Personal</h2>
+<div class="form-row">
+  <div class="form-group">
+    <label>Nombre completo *</label>
+    <input type="text" name="full_name" required>
+  </div>
+  <div class="form-group">
+    <label>Email *</label>
+    <input type="email" name="email" required>
+  </div>
+  <div class="form-group">
+    <label>Teléfono *</label>
+    <input type="tel" name="phone" required>
+  </div>
+</div>
+
+<!-- ================= DOCUMENTOS ================= -->
+<h2 class="section-title">Documentación</h2>
+
+<div class="form-row">
+
+<div class="form-group">
+<label>Estado de cuenta 1 (PDF) *</label>
+<div class="file-input">
+<i class="fas fa-file-pdf"></i>
+<div class="file-name">Seleccionar archivo</div>
+<input type="file" name="files[]" accept=".pdf" required>
+</div>
+</div>
+
+<div class="form-group">
+<label>Estado de cuenta 2 (PDF) *</label>
+<div class="file-input">
+<i class="fas fa-file-pdf"></i>
+<div class="file-name">Seleccionar archivo</div>
+<input type="file" name="files[]" accept=".pdf" required>
+</div>
+</div>
+
+<div class="form-group">
+<label>Estado de cuenta 3 (PDF) *</label>
+<div class="file-input">
+<i class="fas fa-file-pdf"></i>
+<div class="file-name">Seleccionar archivo</div>
+<input type="file" name="files[]" accept=".pdf" required>
+</div>
+</div>
+
+<div class="form-group">
+<label>ID / Licencia *</label>
+<div class="file-input">
+<i class="fas fa-id-card"></i>
+<div class="file-name">Seleccionar imagen</div>
+<input type="file" name="files[]" accept="image/*" required>
+</div>
+</div>
+
+<div class="form-group">
+<label>ITIN / SSN (opcional)</label>
+<div class="file-input">
+<i class="fas fa-passport"></i>
+<div class="file-name">Seleccionar imagen</div>
+<input type="file" name="files[]" accept="image/*">
+</div>
+</div>
+
+<div class="form-group">
+<label>Último Payroll (PDF) *</label>
+<div class="file-input">
+<i class="fas fa-file-invoice-dollar"></i>
+<div class="file-name">Seleccionar archivo</div>
+<input type="file" name="files[]" accept=".pdf" required>
+</div>
+</div>
+
+</div>
+
+<!-- ================= INFO VEHÍCULO ================= -->
+<h2 class="section-title">Vehículo</h2>
+<div class="form-row">
+
+<div class="form-group">
+<label>Modelo *</label>
+<input type="text" name="vehicle_model" required>
+</div>
+
+<div class="form-group">
+<label>Foto VIN *</label>
+<div class="file-input">
+<i class="fas fa-barcode"></i>
+<div class="file-name">Seleccionar imagen</div>
+<input type="file" name="files[]" accept="image/*" required>
+</div>
+</div>
+
+<div class="form-group">
+<label>Foto Odómetro *</label>
+<div class="file-input">
+<i class="fas fa-tachometer-alt"></i>
+<div class="file-name">Seleccionar imagen</div>
+<input type="file" name="files[]" accept="image/*" required>
+</div>
+</div>
+
+<div class="form-group">
+<label>Documento Payoff *</label>
+<div class="file-input">
+<i class="fas fa-file-contract"></i>
+<div class="file-name">Seleccionar archivo</div>
+<input type="file" name="files[]" accept=".pdf,image/*" required>
+</div>
+</div>
+
+</div>
+
+<button type="submit">
+<i class="fas fa-paper-plane"></i> Enviar Solicitud
+</button>
+
+</form>
+</div>
+
+<footer>
+© 2026 Toyota — Formulario procesado con Formscarry
+</footer>
+
+</div>
+
+<script>
+document.querySelectorAll('input[type=file]').forEach(input=>{
+  input.addEventListener('change',()=>{
+    const name=input.files[0]?.name||'Seleccionar archivo';
+    input.parentElement.querySelector('.file-name').textContent=name;
+  });
+});
+</script>
+
 </body>
 </html>
