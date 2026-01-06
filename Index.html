@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Aprobación - Toyota</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --toyota-red: #eb0a1e;
+            --toyota-dark-red: #c10818;
+            --toyota-gray: #333333;
+            --toyota-light-gray: #f5f5f5;
+            --toyota-white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--toyota-light-gray);
+            color: var(--toyota-gray);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--toyota-red), var(--toyota-dark-red));
+            color: var(--toyota-white);
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .header-text {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-container {
+            background: var(--toyota-white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            color: var(--toyota-red);
+            margin: 25px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--toyota-red);
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+        
+        .form-group {
+            flex: 1 0 300px;
+            padding: 0 10px;
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--toyota-gray);
+        }
+        
+        .required::after {
+            content: " *";
+            color: var(--toyota-red);
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--toyota-red);
+        }
+        
+        .file-input {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            background: var(--toyota-white);
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        
+        .file-input:hover {
+            background: var(--toyota-light-gray);
+            border-color: var(--toyota-red);
+        }
+        
+        .file-input input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-input i {
+            color: var(--toyota-red);
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        .file-input .file-text {
+            color: var(--toyota-gray);
+        }
+        
+        .file-input .file-name {
+            display: block;
+            margin-top: 5px;
+            font-size: 14px;
+            color: var(--toyota-red);
+            font-weight: 600;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, var(--toyota-red), var(--toyota-dark-red));
+            color: var(--toyota-white);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: block;
+            margin: 30px auto 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(235, 10, 30, 0.3);
+        }
+        
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+        
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .note p {
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        .file-validation {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .file-error {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .residential-info {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .residential-info h3 {
+            color: var(--toyota-red);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--toyota-red);
+            font-size: 1.2rem;
+        }
+        
+        .residential-fields {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .residential-field {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .residential-field label {
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .residential-field input,
+        .residential-field select {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .residential-field input:focus,
+        .residential-field select:focus {
+            outline: none;
+            border-color: var(--toyota-red);
+        }
+        
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: transform 0.2s ease;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            background: #20b859;
+        }
+        
+        @media (max-width: 768px) {
+            .form-group {
+                flex: 1 0 100%;
+            }
+            
+            .header-text {
+                font-size: 1rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .residential-info {
+                padding: 15px;
+            }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--toyota-gray);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-car"></i> TOYOTA
+            </div>
+            <p class="header-text">Formulario de Aprobación para Financiamiento de Vehículo</p>
+        </header>
+        
+        <div class="form-container">
+            <div class="note">
+                <p><strong>Importante:</strong> Por favor complete todos los campos marcados con * y adjunte los documentos solicitados en formato PDF o imagen (JPG, PNG).</p>
+            </div>
+            
+            <!-- ✅ FORMULARIO CONFIGURADO PARA FORMCARRY -->
+            <form 
+                action="https://formcarry.com/s/qTuSh0WvS4g" 
+                method="POST" 
+                enctype="multipart/form-data"
+                id="approvalForm"
+            >
+                <!-- Documentación -->
+                <h2 class="section-title">Documentación</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bankStmt" class="required">3 últimos estados de cuenta bancarios (PDF)</label>
+                        <div class="file-input">
+                            <i class="fas fa-file-pdf"></i>
+                            <div class="file-text">Seleccionar archivos PDF</div>
+                            <span class="file-name" id="bankStmtFile">Ningún archivo seleccionado</span>
+                            <input type="file" id="bankStmt" name="bankStmt" accept=".pdf" multiple required>
+                        </div>
+                        <div class="file-validation" id="bankStmtValidation">Debe subir exactamente 3 archivos PDF</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="idDoc" class="required">Foto de ID y/o licencia</label>
+                        <div class="file-input">
+                            <i class="fas fa-id-card"></i>
+                            <div class="file-text">Seleccionar imagen</div>
+                            <span class="file-name" id="idFile">Ningún archivo seleccionado</span>
+                            <input type="file" id="idDoc" name="idDoc" accept="image/*" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="itinDoc">Foto del Social o ITIN number (si lo tienes)</label>
+                        <div class="file-input">
+                            <i class="fas fa-passport"></i>
+                            <div class="file-text">Seleccionar imagen</div>
+                            <span class="file-name" id="itinFile">Ningún archivo seleccionado</span>
+                            <input type="file" id="itinDoc" name="itinDoc" accept="image/*">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="payrollDoc" class="required">Último Payroll (voucher de pago) - Formato PDF</label>
+                        <div class="file-input">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <div class="file-text">Seleccionar archivo PDF</div>
+                            <span class="file-name" id="payrollFile">Ningún archivo seleccionado</span>
+                            <input type="file" id="payrollDoc" name="payrollDoc" accept=".pdf" required>
+                        </div>
+                        <div class="file-validation" id="payrollValidation">Solo se aceptan archivos PDF</div>
+                    </div>
+                </div>
+                
+                <!-- Información complementaria -->
+                <h2 class="section-title">Información Complementaria</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="workName" class="required">Nombre de tu trabajo</label>
+                        <input type="text" id="workName" name="workName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="workAddress" class="required">Dirección de tu trabajo</label>
+                        <input type="text" id="workAddress" name="workAddress" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="position" class="required">Cargo o función que desempeñas</label>
+                        <input type="text" id="position" name="position" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="monthlySalary" class="required">Sueldo mensual ($)</label>
+                        <input type="number" id="monthlySalary" name="monthlySalary" min="0" step="100" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="employmentTime" class="required">Tiempo en el empleo</label>
+                        <select id="employmentTime" name="employmentTime" required>
+                            <option value="">Seleccione...</option>
+                            <option value="less-6">Menos de 6 meses</option>
+                            <option value="6-12">6 a 12 meses</option>
+                            <option value="1-2">1 a 2 años</option>
+                            <option value="2-5">2 a 5 años</option>
+                            <option value="5+">Más de 5 años</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Información residencial -->
+                <div class="residential-info">
+                    <h3>Información residencial</h3>
+                    <div class="residential-fields">
+                        <div class="residential-field">
+                            <label for="streetAddress" class="required">Dirección de la calle *</label>
+                            <input type="text" id="streetAddress" name="streetAddress" required>
+                        </div>
+                        
+                        <div class="residential-field">
+                            <label for="city" class="required">Ciudad *</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                        
+                        <div class="residential-field">
+                            <label for="state" class="required">Estado *</label>
+                            <select id="state" name="state" required>
+                                <option value="">Seleccione estado</option>
+                                <option value="AL">Alabama</option>
+                                <option value="AK">Alaska</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="AR">Arkansas</option>
+                                <option value="CA">California</option>
+                                <option value="CO">Colorado</option>
+                                <option value="CT">Connecticut</option>
+                                <option value="DE">Delaware</option>
+                                <option value="FL">Florida</option>
+                                <option value="GA">Georgia</option>
+                                <option value="HI">Hawaii</option>
+                                <option value="ID">Idaho</option>
+                                <option value="IL">Illinois</option>
+                                <option value="IN">Indiana</option>
+                                <option value="IA">Iowa</option>
+                                <option value="KS">Kansas</option>
+                                <option value="KY">Kentucky</option>
+                                <option value="LA">Louisiana</option>
+                                <option value="ME">Maine</option>
+                                <option value="MD">Maryland</option>
+                                <option value="MA">Massachusetts</option>
+                                <option value="MI">Michigan</option>
+                                <option value="MN">Minnesota</option>
+                                <option value="MS">Mississippi</option>
+                                <option value="MO">Missouri</option>
+                                <option value="MT">Montana</option>
+                                <option value="NE">Nebraska</option>
+                                <option value="NV">Nevada</option>
+                                <option value="NH">New Hampshire</option>
+                                <option value="NJ">New Jersey</option>
+                                <option value="NM">New Mexico</option>
+                                <option value="NY">New York</option>
+                                <option value="NC">North Carolina</option>
+                                <option value="ND">North Dakota</option>
+                                <option value="OH">Ohio</option>
+                                <option value="OK">Oklahoma</option>
+                                <option value="OR">Oregon</option>
+                                <option value="PA">Pennsylvania</option>
+                                <option value="RI">Rhode Island</option>
+                                <option value="SC">South Carolina</option>
+                                <option value="SD">South Dakota</option>
+                                <option value="TN">Tennessee</option>
+                                <option value="TX">Texas</option>
+                                <option value="UT">Utah</option>
+                                <option value="VT">Vermont</option>
+                                <option value="VA">Virginia</option>
+                                <option value="WA">Washington</option>
+                                <option value="WV">West Virginia</option>
+                                <option value="WI">Wisconsin</option>
+                                <option value="WY">Wyoming</option>
+                            </select>
+                        </div>
+                        
+                        <div class="residential-field">
+                            <label for="zipCode" class="required">Código postal *</label>
+                            <input type="text" id="zipCode" name="zipCode" required>
+                        </div>
+                        
+                        <div class="residential-field">
+                            <label for="housingType" class="required">Tipo de vivienda *</label>
+                            <select id="housingType" name="housingType" required>
+                                <option value="">Seleccione tipo de vivienda</option>
+                                <option value="own">Propia</option>
+                                <option value="rent">Alquilada</option>
+                                <option value="live_with_family">Vivo con familia</option>
+                                <option value="other">Otro</option>
+                            </select>
+                        </div>
+                        
+                        <div class="residential-field">
+                            <label for="monthlyRent" class="required">Monto de alquiler/hipoteca mensual *</label>
+                            <input type="number" id="monthlyRent" name="monthlyRent" min="0" step="10" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Información del vehículo -->
+                <h2 class="section-title">Información del Vehículo</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="vinPhoto" class="required">Foto del VIN</label>
+                        <div class="file-input">
+                            <i class="fas fa-barcode"></i>
+                            <div class="file-text">Seleccionar imagen</div>
+                            <span class="file-name" id="vinFile">Ningún archivo seleccionado</span>
+                            <input type="file" id="vinPhoto" name="vinPhoto" accept="image/*" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mileagePhoto" class="required">Foto de las millas</label>
+                        <div class="file-input">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <div class="file-text">Seleccionar imagen</div>
+                            <span class="file-name" id="mileageFile">Ningún archivo seleccionado</span>
+                            <input type="file" id="mileagePhoto" name="mileagePhoto" accept="image/*" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="payoffDoc" class="required">Payoff de tu deuda</label>
+                        <div class="file-input">
+                            <i class="fas fa-file-contract"></i>
+                            <div class="file-text">Seleccionar archivo PDF o imagen</div>
+                            <span class="file-name" id="payoffFile">Ningún archivo seleccionado</span>
+                            <input type="file" id="payoffDoc" name="payoffDoc" accept=".pdf,image/*" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-paper-plane"></i> Enviar Solicitud
+                </button>
+            </form>
+        </div>
+        
+        <!-- Botón de WhatsApp -->
+        <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        
+        <footer>
+            <p>© 2026 Toyota. Todos los derechos reservados. | Formulario de Aprobación para Financiamiento</p>
+        </footer>
+    </div>
+
+    <script>
+        // Validaciones visuales (no bloquean el envío si se cumplen)
+        function validateBankStatements() {
+            const files = document.getElementById('bankStmt').files;
+            const msg = document.getElementById('bankStmtValidation');
+            if (files.length === 0) {
+                msg.textContent = 'Debe subir exactamente 3 archivos PDF';
+                msg.style.color = '#dc3545';
+                return false;
+            } else if (files.length !== 3) {
+                msg.textContent = `Debe subir exactamente 3 archivos PDF (tiene ${files.length})`;
+                msg.style.color = '#dc3545';
+                return false;
+            } else {
+                for (let f of files) {
+                    if (!f.name.toLowerCase().endsWith('.pdf')) {
+                        msg.textContent = 'Todos los archivos deben ser PDF';
+                        msg.style.color = '#dc3545';
+                        return false;
+                    }
+                }
+                msg.textContent = '✓ 3 archivos PDF seleccionados';
+                msg.style.color = '#28a745';
+                return true;
+            }
+        }
+
+        function validatePayroll() {
+            const files = document.getElementById('payrollDoc').files;
+            const msg = document.getElementById('payrollValidation');
+            if (files.length === 0) {
+                msg.textContent = 'Este campo es obligatorio';
+                msg.style.color = '#dc3545';
+                return false;
+            } else if (!files[0].name.toLowerCase().endsWith('.pdf')) {
+                msg.textContent = 'Solo se aceptan archivos PDF';
+                msg.style.color = '#dc3545';
+                return false;
+            } else {
+                msg.textContent = '✓ Archivo PDF seleccionado';
+                msg.style.color = '#28a745';
+                return true;
+            }
+        }
+
+        // Actualizar nombres de archivo en pantalla
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', function() {
+                const fileName = this.files[0]?.name || 'Ningún archivo seleccionado';
+                const label = this.closest('.file-input').querySelector('.file-name');
+                if (label) label.textContent = fileName;
+
+                if (this.id === 'bankStmt') validateBankStatements();
+                if (this.id === 'payrollDoc') validatePayroll();
+            });
+        });
+
+        // Validación previa al envío (solo para feedback)
+        document.getElementById('approvalForm').addEventListener('submit', function(e) {
+            const validBank = validateBankStatements();
+            const validPayroll = validatePayroll();
+            if (!validBank || !validPayroll) {
+                e.preventDefault();
+                alert('Por favor corrija los errores en los archivos antes de enviar.');
+            }
+        });
+    </script>
+</body>
+</html>
